@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.optus.optusuidemo.MainActivity">
+
+    <com.optus.optusuidemo.CustomTabLayout
+        android:id="@+id/tl_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabSelectedTextColor="#ffffff"
+        app:tabIndicatorColor="#FF4081"
+        app:tabTextColor="#000000"
+        app:tabGravity="fill"
+        app:tabBackground="@android:color/holo_blue_bright"
+    />
+
+    <include layout="@layout/layout_viewpager"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="?android:attr/listDivider" />
+
+    <include layout="@layout/layout_text"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="?android:attr/listDivider" />
+
+    <TextView android:id="@+id/bt_mtx"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:gravity="center"
+              android:background="@android:color/white"
+              android:textColor="@color/demoTextColor"
+              android:text="information related to tab items"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="?android:attr/listDivider" />
+
+    <include layout="@layout/layout_button"/>
+
+</LinearLayout>
