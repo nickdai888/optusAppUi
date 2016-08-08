@@ -1,6 +1,7 @@
 package com.optus.optusuidemo;
 
-import android.graphics.Color;
+import android.content.res.ColorStateList;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -9,65 +10,50 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.LinearLayout;
 import android.view.ViewGroup.LayoutParams;
 
+import com.optus.optusuidemo.databinding.ActivityMainBinding;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private ActivityMainBinding mBinding;
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private ViewPagerAdapter viewPagerAdapter;
 
-    private TextView mTextView;
+//    private TextView mTextView;
     private int selectedTabIndex = 1;//choose the first one as default
-
-    private int buttonBackGroundColor = Color.RED;
-    private LinearLayout btnBackground;
+    private UserData user;
 
     //small round point
     private ViewGroup smallRoundGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        user = new UserData();
+
+        mBinding.setUser(user);
         //init ui elements
         initTab();
         initViewPager();
-        initTextView();
-        initButtons();
         //init event
         initEvents();
     }
 
-    private void initButtons(){
-        Button bt_red =  (Button)this.findViewById(R.id.bt_red);
-        bt_red.setTag(Color.RED);
-        bt_red.setOnClickListener(this);
-
-        Button bt_green=  (Button)this.findViewById(R.id.bt_green);
-        bt_green.setTag(Color.GREEN);
-        bt_green.setOnClickListener(this);
-
-        Button bt_blue =  (Button)this.findViewById(R.id.bt_blue);
-        bt_blue.setTag(Color.BLUE);
-        bt_blue.setOnClickListener(this);
-
-        btnBackground = (LinearLayout)findViewById(R.id.bt_bg);
-        updateButtonBackGroundColor();//init button background color
-    }
 
     private ImageView imageView;
     private ImageView[] imageViews;
 
     private void initViewPager(){
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.vp_viewpager);
+        mViewPager = mBinding.vpViewpager;
         mViewPager.setAdapter(viewPagerAdapter);
         mViewPager.addOnPageChangeListener(new GuidePageChangeListener());
 
         //init small round group
-        smallRoundGroup = (ViewGroup)this.findViewById(R.id.ptViewGroup);
+        smallRoundGroup = mBinding.ptViewGroup;
         imageViews = new ImageView[viewPagerAdapter.getPageNumber()];
         for (int i = 0; i < viewPagerAdapter.getPageNumber(); i++) {
             LinearLayout.LayoutParams margin = new LinearLayout.LayoutParams(
@@ -120,43 +106,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initTab(){
-        mTabLayout = (TabLayout) findViewById(R.id.tl_tabs);
+        mTabLayout = mBinding.tlTabs;
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
-        TabLayout.Tab tab1 = mTabLayout.newTab().setText("item1");
+        TabLayout.Tab tab1 = mTabLayout.newTab().setText(this.getString(R.string.tab1_name));
         mTabLayout.addTab(tab1);
         tab1.setTag(new Integer(1));
 
-        TabLayout.Tab tab2 = mTabLayout.newTab().setText("item2");
+        TabLayout.Tab tab2 = mTabLayout.newTab().setText(this.getString(R.string.tab2_name));
         mTabLayout.addTab(tab2);
         tab2.setTag(new Integer(2));
 
-        TabLayout.Tab tab3 = mTabLayout.newTab().setText("item3");
+        TabLayout.Tab tab3 = mTabLayout.newTab().setText(this.getString(R.string.tab3_name));
         mTabLayout.addTab(tab3);
         tab3.setTag(new Integer(3));
 
-        TabLayout.Tab tab4 = mTabLayout.newTab().setText("item4");
+        TabLayout.Tab tab4 = mTabLayout.newTab().setText(this.getString(R.string.tab4_name));
         mTabLayout.addTab(tab4);
         tab4.setTag(new Integer(4));
 
-        TabLayout.Tab tab5 = mTabLayout.newTab().setText("item5");
+        TabLayout.Tab tab5 = mTabLayout.newTab().setText(this.getString(R.string.tab5_name));
         mTabLayout.addTab(tab5);
         tab5.setTag(new Integer(5));
+
+        user.setItemPanleText(getTextContent());
     }
 
 
-    private void initTextView(){
-        mTextView = (TextView)this.findViewById(R.id.bt_mtx);
-        mTextView.setText(getTextContent());
-    }
 
     private void updateText(){
-        mTextView.setText(getTextContent());
+        user.setItemPanleText(getTextContent());
     }
 
     //get text content by selected tab item
     private final String getTextContent(){
-        String content =  "User choose ITEM" +   String.valueOf(selectedTabIndex );
+        String content =  this.getString(R.string.user_choose_title) +   String.valueOf(selectedTabIndex );
         return content;
     }
 
@@ -191,12 +175,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        buttonBackGroundColor = (Integer)v.getTag();
-        updateButtonBackGroundColor();
-    }
-
-    private void updateButtonBackGroundColor(){
-        btnBackground.setBackgroundColor(buttonBackGroundColor);
+        Button button = (Button)v;
+        ColorStateList mList = button.getTextColors();
+        int color = mList.getDefaultColor();
+        user.setBtnColor(color);
     }
 
 }

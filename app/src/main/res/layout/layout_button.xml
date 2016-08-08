@@ -4,7 +4,6 @@
               android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="@android:color/white"
               android:paddingTop="25dp"
               android:paddingBottom="25dp">
 
@@ -12,21 +11,27 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+             android:onClick="onClick"
             android:gravity="center"
+             android:textColor="@android:color/holo_red_light"
             android:text="RED"/>
 
     <Button android:id="@+id/bt_green"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="onClick"
             android:gravity="center"
+            android:textColor="@android:color/holo_green_light"
             android:text="GREEN"/>
 
     <Button android:id="@+id/bt_blue"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="onClick"
             android:gravity="center"
+            android:textColor="@android:color/holo_blue_light"
             android:text="BLUE"/>
 
 </LinearLayout>

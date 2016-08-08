@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">OptusUIDemo</string>
+    <string name="tab1_name">ITEM1</string>
+    <string name="tab2_name">ITEM2</string>
+    <string name="tab3_name">ITEM3</string>
+    <string name="tab4_name">ITEM4</string>
+    <string name="tab5_name">ITEM5</string>
+    <string name="user_choose_title">User choose ITEM</string>
 </resources>
